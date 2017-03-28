@@ -1,0 +1,13 @@
+Program to implement wordcount using Pig. 
+
+grunt> w1 = load '/user/acadgild/dataset.txt';
+
+w2 = foreach w1 generate flatten(TOKENIZE((chararray)$0)) as w;
+
+w3 = filter w2 by w matches '\\w+';
+
+w4 = group w3 by w;
+
+w5 = foreach w4 generate COUNT(w3), group;
+
+dump w5;
